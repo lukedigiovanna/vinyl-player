@@ -2,7 +2,7 @@ import React from 'react';
 import { AlbumAccordion } from './components/AlbumAccordion';
 import { Album } from './models/album.model';
 
-import renderer from './core/render';
+import { PlayerCanvas } from './components/PlayerCanvas';
 
 const myAlbums: Album[] = [
   {
@@ -23,28 +23,10 @@ const myAlbums: Album[] = [
 ];
 
 function App() {
-  const canvasRef = React.createRef<HTMLCanvasElement>();
-
-  React.useEffect(() => {
-    if (canvasRef.current) {
-      renderer.setCanvas(canvasRef.current);
-      renderer.render();
-    }
-  }, [canvasRef]);
   
   return (
     <div>
-      <button onClick={() => {
-        if (renderer.isRendering()) {
-          renderer.stopRendering();
-        }
-        else {
-          renderer.render();
-        }
-      }}>
-        Toggle
-      </button>
-      <canvas ref={canvasRef} width={500} height={500} />
+      <PlayerCanvas />
       <AlbumAccordion albums={myAlbums} />
     </div>
   );

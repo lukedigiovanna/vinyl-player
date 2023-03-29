@@ -90,6 +90,7 @@ class Renderer {
 
     /**
      * Begins the render loop if it has not already begun.
+     * If it has already begun, this function does nothing.
      */
     render() {
         if (!this.initialized) {
@@ -100,7 +101,6 @@ class Renderer {
             this.running = true;
             this.renderLoop();
         }
-
     }
 
     /**
