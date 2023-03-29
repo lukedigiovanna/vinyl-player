@@ -1,24 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import renderer from './core/render';
+
 function App() {
+  const canvasRef = React.createRef<HTMLCanvasElement>();
+
+  React.useEffect(() => {
+    if (canvasRef.current) {
+      renderer.setCanvas(canvasRef.current);
+      renderer.render();
+    }
+  }, [canvasRef]);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={() => {
+        if (renderer.isRendering()) {
+          renderer.stopRendering();
+        }
+        else {
+          renderer.render();
+        }
+      }}>
+        Toggle
+      </button>
+      <canvas ref={canvasRef} width={500} height={500} />
     </div>
   );
 }
